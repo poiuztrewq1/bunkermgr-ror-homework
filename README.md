@@ -12,6 +12,8 @@ Mysql (There is a docker-compose file for development)
 ## Setup
 ```
 bundle install
+yarn install
 docker-compose up --build
+rails db:setup
 rails -s
 ```

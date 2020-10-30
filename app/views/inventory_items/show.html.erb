@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Food type:</strong>
+  <%= @inventory_item.food_type %>
+</p>
+
+<p>
+  <strong>Exp date:</strong>
+  <%= @inventory_item.exp_date %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @inventory_item.quantity %>
+</p>
+
+<p>
+  <strong>Nutrition per unit:</strong>
+  <%= @inventory_item.nutrition_per_unit %>
+</p>
+
+<%= link_to 'Edit', edit_inventory_item_path(@inventory_item) %> |
+<%= link_to 'Back', inventory_items_path %>

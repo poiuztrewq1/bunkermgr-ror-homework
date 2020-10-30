@@ -1,7 +1,31 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# frozen_string_literal: true
+
+num_users           = 50
+num_bunkers         = 5
+min_item_per_bunker = 0
+max_item_per_bunker = 15
+
+num_users.times do |_t|
+  user = User.create(name:            Faker::Name.name,
+                     email:           Faker::Internet.email,
+                     password_digest: Faker::Internet.hash)
+  puts "creating user: #{user.name}"
+end
+
+
+#create a super-user, pass: 'admin'
+User.create(name: 'Admin János', email: 'admin@admin.com', password_digest: '$2a$12$dkMChP1EXIeXzDZrW6pv7uTdGXsCt1d6AwSWkBNxVJhLoFALayH2W', admin: true)
+
+num_bunkers.times do |_t|
+  bunker   = Bunker.create(name:     Faker::Ancient.god,
+                           address:  Faker::Address.street_address,
+                           capacity: Faker::Number.between(from: 5, to: 100))
+  num_item = Faker::Number.between(from: min_item_per_bunker, to: max_item_per_bunker)
+  num_item.times do |_i|
+    InventoryItem.create(food_type:          Faker::Food.dish,
+                         exp_date:           Faker::Date.forward(days: 365),
+                         quantity:           Faker::Number.between(from: 10, to: 100),
+                         nutrition_per_unit: Faker::Number.between(from: 1000, to: 3000))
+  end
+  puts "Created bunker #{bunker.name} with #{num_item} inventory items"
+end
