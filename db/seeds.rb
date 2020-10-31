@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-num_users           = 50
+num_users           = 15
 num_bunkers         = 5
 min_item_per_bunker = 0
 max_item_per_bunker = 15
@@ -8,13 +8,13 @@ max_item_per_bunker = 15
 num_users.times do |_t|
   user = User.create(name:            Faker::Name.name,
                      email:           Faker::Internet.email,
-                     password_digest: Faker::Internet.hash)
-  puts "creating user: #{user.name}"
+                     password: Faker::Internet.password(min_length: 8, max_length: 10, ))
+  puts "creating user: #{user.name} with password: #{user.password}"
 end
 
 
 #create a super-user, pass: 'admin'
-User.create(name: 'Admin János', email: 'admin@admin.com', password_digest: '$2a$12$dkMChP1EXIeXzDZrW6pv7uTdGXsCt1d6AwSWkBNxVJhLoFALayH2W', admin: true)
+User.create(name: 'Admin János', email: 'admin@admin.com', password:'admin', admin: true)
 
 num_bunkers.times do |_t|
   bunker   = Bunker.create(name:     Faker::Ancient.god,
