@@ -5,16 +5,9 @@ num_bunkers         = 5
 min_item_per_bunker = 0
 max_item_per_bunker = 15
 
-num_users.times do |_t|
-  user = User.create(name:            Faker::Name.name,
-                     email:           Faker::Internet.safe_email,
-                     password: Faker::Internet.password(min_length: 8, max_length: 10, ))
-  puts "creating user: #{user.name} with password: #{user.password}"
-end
-
 
 #create a super-user, pass: 'admin'
-User.create(name: 'Admin János', email: 'admin@admin.com', password:'admin', admin: true)
+User.create(name: 'Admin János', email: 'admin@admin.com', password: 'admin', admin: true)
 
 num_bunkers.times do |_t|
   bunker   = Bunker.create(name:     Faker::Ancient.god,
@@ -25,7 +18,16 @@ num_bunkers.times do |_t|
     InventoryItem.create(food_type:          Faker::Food.dish,
                          exp_date:           Faker::Date.forward(days: 365),
                          quantity:           Faker::Number.between(from: 10, to: 100),
-                         nutrition_per_unit: Faker::Number.between(from: 1000, to: 3000))
+                         nutrition_per_unit: Faker::Number.between(from: 1000, to: 3000),
+                         bunker:             bunker)
   end
   puts "Created bunker #{bunker.name} with #{num_item} inventory items"
+end
+
+num_users.times do |_t|
+  user = User.create(name:     Faker::Name.name,
+                     email:    Faker::Internet.safe_email,
+                     password: Faker::Internet.password(min_length: 8, max_length: 10,))
+  user.bunkers << Bunker.all.sample
+  puts "creating user: #{user.name} with password: #{user.password}"
 end
