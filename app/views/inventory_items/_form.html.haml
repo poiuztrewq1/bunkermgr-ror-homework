@@ -1,4 +1,5 @@
 = form_with(model: inventory_item, local: true) do |form|
+  -render 'layouts/error', errors: inventory_item.errors
   - if inventory_item.errors.any?
     #error_explanation
       %h2

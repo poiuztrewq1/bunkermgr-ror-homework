@@ -1,12 +1,63 @@
-%p
-  %strong Name:
-  = @bunker.name
-%p
-  %strong Address:
-  = @bunker.address
-%p
-  %strong Capacity:
-  = @bunker.capacity
-= link_to 'Edit', edit_bunker_path(@bunker)
-|
-= link_to 'Back', bunkers_path
+.row.mb-4
+  .col.col-10
+    %h2 Bunker's information:
+    %ul.list-group.list-group-flush
+      %li.list-group-item= "Name: #{@bunker.name}"
+      %li.list-group-item= "Address: #{@bunker.address}"
+      %li.list-group-item= "Capacity: #{@bunker.capacity} person"
+      %li.list-group-item= "Estimated stock duration: XXX days"
+    -if admin?
+      = link_to 'Edit', edit_bunker_path(@bunker), { class: 'btn btn-primary', type: 'button'}
+.row.mb-4
+  .col.col-12
+    %h2 Bunker Inventory:
+    %table.table.table-responsive-sm
+      %thead.thead-dark
+        %tr
+          %th{:scope => "col"} Name
+          %th{:scope => "col"} Quantity
+          %th{:scope => "col"} Expiration Date
+          - if admin?
+            %th{:scope => "col", :colspan => "3"} Actions
+      %tbody
+        %tr
+          %td Szárított marha
+          %td 100 adag
+          %td.text-danger 2017.03.11
+          - if admin?
+            %td
+              = link_to inventory_items_path, class: 'btn btn-secondary btn-sm' do
+                %i.fas.fa-info-circle
+            %td
+              = link_to inventory_items_path, class: 'btn btn-primary btn-sm' do
+                %i.fas.fa-edit
+            %td
+              = link_to inventory_items_path, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } do
+                %i.fas.fa-trash
+
+    -if admin?
+      = link_to 'New Inventory Item', new_inventory_item_path, { class: 'btn btn-primary btn-lg btn-block', type: 'button'}
+.row
+  .col.col-12
+    %h2 Assigned users
+    %table.table.table-responsive-sm
+      %thead.thead-dark
+        %tr
+          %th{:scope => "col"} Name
+          %th{:scope => "col"} Email
+          - if admin?
+            %th{:scope => "col", :colspan => "2"} Actions
+      %tbody
+        %tr
+          %td Teszt Elek
+          %td asd@asd.com
+          - if admin?
+            %td
+              = link_to inventory_items_path, class: 'btn btn-secondary btn-sm' do
+                %i.fas.fa-info-circle
+            %td
+              = link_to inventory_items_path, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } do
+                %i.fas.fa-trash
+
+    -if admin?
+      = link_to 'Assign new user', new_inventory_item_path, { class: 'btn btn-primary btn-lg btn-block', type: 'button'}

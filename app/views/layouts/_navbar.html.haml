@@ -1,13 +1,13 @@
 - if logged_in?
   %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-    %a.navbar-brand{:href => "/"} BunkerMGR
+    = link_to 'BunkerMGR', root_path, class: 'navbar-brand'
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.mr-auto
         %li.nav-item
           = link_to 'Bunkers', bunkers_path, class: 'nav-link'
-        -if current_user.admin?
+        -if admin?
           %li.nav-item
             = link_to 'Users', users_path, class: 'nav-link'
           %li.nav-item

@@ -1,19 +1,39 @@
-%h1 Bunkers
-%table
-  %thead
-    %tr
-      %th Name
-      %th Address
-      %th Capacity
-      %th{:colspan => "3"}
-  %tbody
-    - @bunkers.each do |bunker|
-      %tr
-        %td= bunker.name
-        %td= bunker.address
-        %td= bunker.capacity
-        %td= link_to 'Show', bunker
-        %td= link_to 'Edit', edit_bunker_path(bunker)
-        %td= link_to 'Destroy', bunker, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Bunker', new_bunker_path
+.row
+  .col-12
+    -if !@bunkers.empty?
+      %h1 Bunkers
+      %table{:class => 'table table-responsive-sm'}
+        %thead{:class => 'thead-dark'}
+          %tr
+            %th Name
+            %th Stock (days)
+            %th Warnings
+            %th{:colspan => admin?? "3" : "1"} Actions
+        %tbody
+          - @bunkers.each do |bunker|
+            %tr
+              %td
+                %strong= bunker.name
+              %td= bunker.address
+              %td
+                Warning
+              %td
+                = link_to bunker, class: 'btn btn-secondary btn-sm' do
+                  %i.fas.fa-info-circle
+              - if admin?
+                %td
+                  = link_to edit_bunker_path(bunker), class: 'btn btn-primary btn-sm' do
+                    %i.fas.fa-edit
+                %td
+                  = link_to bunker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' do
+                    %i.fas.fa-trash
+      %br/
+    - else
+      .bg-info
+        %h2 No bunkers found
+        - if admin?
+          %p There are no bunkers in the database. Please create one using the button below!
+        - else
+          %p Currently there are no bunkers that you are assigned to. Please contact an Admin.
+    -if admin?
+      = link_to 'New Bunker', new_bunker_path, { class: 'btn btn-primary btn-lg btn-block', type: 'button'}

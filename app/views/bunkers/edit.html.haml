@@ -1,5 +1,4 @@
-%h1 Editing Bunker
-= render 'form', bunker: @bunker
-= link_to 'Show', @bunker
-|
-= link_to 'Back', bunkers_path
+.row
+  .col-12
+    %h1 Editing Bunker
+    = render 'form', bunker: @bunker, back_path: bunker_path(@bunker)
