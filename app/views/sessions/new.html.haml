@@ -1,13 +1,20 @@
-%h1 Login
-= form_tag login_post_path do |form|
-  %div{:class => "”field”"}
-    = label_tag :email
-    = text_field_tag :email
-  %div{:class => "”field”"}
-    = label_tag :password
-    = password_field_tag :password
-  %div{:class => "”actions”"}
-    = submit_tag "Log in"
-%p
-  Or,
-  \#{link_to "Sign Up", register_path}
+.row.align-items-center.justify-content-center.mt-5
+  .col-6
+    %h1 Welcome to BunkerMGR
+    %h2.mb-5 Please log in to continue.
+    .card.border-light.mb-3.shadow
+      .card-header
+        Log In
+      .card-body
+        = form_tag login_post_path do
+          .form-group
+            = label_tag :email
+            = email_field_tag :email ,'', {class: 'form-control'}
+          .form-group
+            = label_tag :password
+            = password_field_tag :password, '', {class: 'form-control'}
+          = submit_tag "Log in", {class: 'btn btn-primary'}
+      .card-footer
+        = link_to 'Sign Up', register_path
+        If you dont have an account
+
