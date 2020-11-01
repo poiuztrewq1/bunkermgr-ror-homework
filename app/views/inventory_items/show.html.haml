@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Food type:
+  = @inventory_item.food_type
+%p
+  %strong Exp date:
+  = @inventory_item.exp_date
+%p
+  %strong Quantity:
+  = @inventory_item.quantity
+%p
+  %strong Nutrition per unit:
+  = @inventory_item.nutrition_per_unit
+= link_to 'Edit', edit_inventory_item_path(@inventory_item)
+|
+= link_to 'Back', inventory_items_path

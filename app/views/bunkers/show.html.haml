@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @bunker.name
+%p
+  %strong Address:
+  = @bunker.address
+%p
+  %strong Capacity:
+  = @bunker.capacity
+= link_to 'Edit', edit_bunker_path(@bunker)
+|
+= link_to 'Back', bunkers_path

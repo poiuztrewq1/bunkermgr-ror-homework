@@ -1,0 +1,20 @@
+%p#notice= notice
+%h1 Bunkers
+%table
+  %thead
+    %tr
+      %th Name
+      %th Address
+      %th Capacity
+      %th{:colspan => "3"}
+  %tbody
+    - @bunkers.each do |bunker|
+      %tr
+        %td= bunker.name
+        %td= bunker.address
+        %td= bunker.capacity
+        %td= link_to 'Show', bunker
+        %td= link_to 'Edit', edit_bunker_path(bunker)
+        %td= link_to 'Destroy', bunker, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Bunker', new_bunker_path
