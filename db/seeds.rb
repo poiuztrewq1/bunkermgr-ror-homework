@@ -7,7 +7,7 @@ max_item_per_bunker = 15
 
 num_users.times do |_t|
   user = User.create(name:            Faker::Name.name,
-                     email:           Faker::Internet.email,
+                     email:           Faker::Internet.safe_email,
                      password: Faker::Internet.password(min_length: 8, max_length: 10, ))
   puts "creating user: #{user.name} with password: #{user.password}"
 end

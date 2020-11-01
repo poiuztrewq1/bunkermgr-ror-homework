@@ -1,12 +1,37 @@
-%p
-  %strong Name:
-  = @user.name
-%p
-  %strong Email:
-  = @user.email
-%p
-  %strong Admin:
-  = @user.admin
-= link_to 'Edit', edit_user_path(@user)
-|
-= link_to 'Back', users_path
+.row
+  .col-md-8
+    .card
+      .card-header
+        %strong= @user.name
+        - if @user.admin
+          %i.fas.fa-crown.text-primary
+      .card-body
+        %p
+          %strong Email:
+          = @user.email
+        %p
+          %strong Role:
+          = @user.admin?? 'Admin' : 'User'
+        %strong Assigned bunkers:
+        %table.table
+          %thead
+            %th Name
+            %th{:colspan => admin?? "2":"1"} Actions
+          %tbody
+            %tr
+              %td XYZ
+              %td
+                = link_to @user, class:'btn btn-secondary btn-sm' do
+                  %i.fas.fa-info-circle
+              - if admin?
+                %td
+                  = link_to @user, method: :delete, data: { confirm: 'Are you sure?' },class:'btn btn-danger btn-sm' do
+                    %i.fas.fa-trash
+      .card-footer
+        - if admin?
+          = link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'
+        = link_to 'Back', users_path, class: 'btn btn-secondary'
+
+
+
+

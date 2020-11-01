@@ -1,19 +1,30 @@
-%h1 Users
-%table
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th Admin
-      %th{:colspan => "3"}
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.name
-        %td= user.email
-        %td= user.admin
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New User', new_user_path
+.row
+  .col-12
+    %table.table.table-responsive-sm
+      %thead.thead-dark
+        %tr
+          %th Name
+          %th Email
+          %th Role
+          %th{:colspan => admin?? "4" : "2"} Actions
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.name
+            %td= user.email
+            %td= user.admin?? "Admin" : "User"
+            %td
+              = mail_to user.email, class: 'btn btn-info' do
+                %i.fas.fa-envelope
+            %td
+              = link_to user, class: 'btn btn-secondary btn-sm' do
+                %i.fas.fa-info-circle
+            - if admin?
+              %td
+                = link_to edit_user_path(user), class: 'btn btn-primary btn-sm' do
+                  %i.fas.fa-edit
+                %td
+                  = link_to user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' do
+                    %i.fas.fa-trash
+    %br/
+    = link_to 'New User', new_user_path

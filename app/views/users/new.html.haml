@@ -1,3 +1,25 @@
-%h1 New User
-= render 'form', user: @user
-= link_to 'Back', users_path
+.row.align-items-center.justify-content-center.mt-5
+  .col-6
+    %h1.mb-5 Bunker Management System
+    .card.border-light.mb-3.shadow
+      .card-header
+        Sign Up
+      .card-body
+        = form_with(model: @user, local: true) do |form|
+          = render 'layouts/error', errors: @user.errors
+          .form-group
+            = form.label :name
+            = form.text_field :name, class: 'form-control'
+          .form-group
+            = form.label :email
+            = form.email_field :email, class: 'form-control'
+          .form-group
+            = form.label :password
+            = form.password_field :password, class: 'form-control'
+          .form-group
+            = form.label :password_confirmation
+            = form.password_field :password_confirmation, class: 'form-control'
+          = form.submit "Register", class: 'btn btn-primary'
+      .card-footer
+        = link_to 'Log in', login_path
+        If you already have an account

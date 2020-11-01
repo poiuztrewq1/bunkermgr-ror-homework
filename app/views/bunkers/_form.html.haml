@@ -11,5 +11,5 @@
     = form.number_field :capacity, class: 'form-control'
 
   = form.submit 'Save' ,class: 'btn btn-primary'
-  - if back_path
+  - if defined?(back_path)
     = link_to 'Back', back_path, { class: 'btn btn-secondary', type: 'button'}

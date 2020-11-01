@@ -1,5 +1,25 @@
-%h1 Editing User
-= render 'form', user: @user
-= link_to 'Show', @user
-|
-= link_to 'Back', users_path
+.row
+  .col-12
+    %h1 Edit User information
+    = form_with(model: @user, local: true) do |form|
+      = render 'layouts/error', errors: @user.errors
+      .form-group
+        = form.label :name
+        = form.text_field :name, class: 'form-control'
+      .form-group
+        = form.label :email
+        = form.email_field :email, class: 'form-control'
+      .form-group
+        = form.label :password
+        = form.password_field :password, class: 'form-control'
+        %small#emailHelp.form-text.text-muted If you don't want to change the password leave the fields empty
+      .form-group
+        = form.label :password_confirmation
+        = form.password_field :password_confirmation, class: 'form-control'
+      - if admin?
+        .form-group
+          .form-check
+            = form.check_box :admin, class: 'form-check-input'
+            = form.label :admin, class: 'form-check-label'
+      = form.submit "Save", class: 'btn btn-primary'
+      = link_to 'Back', @user, class: 'btn btn-secondary'
