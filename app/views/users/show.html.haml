@@ -13,20 +13,22 @@
           %strong Role:
           = @user.admin?? 'Admin' : 'User'
         %strong Assigned bunkers:
-        %table.table
-          %thead
-            %th Name
-            %th{:colspan => admin?? "2":"1"} Actions
-          %tbody
-            %tr
-              %td XYZ
-              %td
-                = link_to @user, class:'btn btn-secondary btn-sm' do
-                  %i.fas.fa-info-circle
-              - if admin?
-                %td
-                  = link_to @user, method: :delete, data: { confirm: 'Are you sure?' },class:'btn btn-danger btn-sm' do
-                    %i.fas.fa-trash
+        -if @user.bunkers.any?
+          %table.table
+            %thead
+              %th Name
+              %th{:colspan => admin?? "2":"1"} Actions
+            %tbody
+              - @user.bunkers.each do |bunker|
+                %tr
+                  %td= bunker.name
+                  %td
+                    = link_to bunker_path(bunker), class:'btn btn-secondary btn-sm' do
+                      %i.fas.fa-info-circle
+                  - if admin?
+                    %td
+                      = link_to @user, method: :delete, data: { confirm: 'Are you sure?' },class:'btn btn-danger btn-sm' do
+                        %i.fas.fa-trash
       .card-footer
         - if admin?
           = link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary'
