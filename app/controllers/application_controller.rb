@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   def logged_in?
-    session[:user_id]
+    current_user.present?
   end
 
   def require_login

@@ -1,21 +1,27 @@
-%h1 Inventory Items
-%table
-  %thead
-    %tr
-      %th Food type
-      %th Exp date
-      %th Quantity
-      %th Nutrition per unit
-      %th{:colspan => "3"}
-  %tbody
-    - @inventory_items.each do |inventory_item|
-      %tr
-        %td= inventory_item.food_type
-        %td= inventory_item.exp_date
-        %td= inventory_item.quantity
-        %td= inventory_item.nutrition_per_unit
-        %td= link_to 'Show', inventory_item
-        %td= link_to 'Edit', edit_inventory_item_path(inventory_item)
-        %td= link_to 'Destroy', inventory_item, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Inventory Item', new_inventory_item_path
+.row
+  .col-12
+    %h1 Inventory Items
+    %table.table.table-responsive-md
+      %thead.thead-dark
+        %tr
+          %th Food type
+          %th Exp date
+          %th Quantity
+          %th Nutrition per unit
+          %th{:colspan => "3"}
+      %tbody
+        - @inventory_items.each do |inventory_item|
+          %tr
+            %td= inventory_item.food_type
+            %td= inventory_item.exp_date
+            %td= inventory_item.quantity
+            %td= inventory_item.nutrition_per_unit
+            %td
+              = link_to inventory_item, class: 'btn btn-secondary btn-sm' do
+                %i.fas.fa-info-circle
+            %td
+              = link_to edit_inventory_item_url(inventory_item), class: 'btn btn-primary btn-sm' do
+                %i.fas.fa-edit
+            %td
+              = link_to inventory_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' do
+                %i.fas.fa-trash

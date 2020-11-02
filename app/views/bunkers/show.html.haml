@@ -36,7 +36,7 @@
                 %i.fas.fa-trash
 
     -if admin?
-      = link_to 'New Inventory Item', new_inventory_item_path, { class: 'btn btn-primary btn-lg btn-block', type: 'button'}
+      = link_to 'New Inventory Item', new_inventory_item_path(bunker_id: @bunker.id), { class: 'btn btn-primary btn-lg btn-block', type: 'button'}
 .row
   .col.col-12
     %h2 Assigned users

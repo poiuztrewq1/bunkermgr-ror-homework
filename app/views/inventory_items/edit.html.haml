@@ -1,5 +1,6 @@
-%h1 Editing Inventory Item
-= render 'form', inventory_item: @inventory_item
-= link_to 'Show', @inventory_item
-|
-= link_to 'Back', inventory_items_path
+.row
+  .col.col-12.col-md-6
+    %h1
+      Edit Inventory Item for
+      %strong= "#{@inventory_item.bunker.name}"
+    = render 'form', inventory_item: @inventory_item, back_path: inventory_item_path(@inventory_item)

@@ -1,15 +1,24 @@
-%p
-  %strong Food type:
-  = @inventory_item.food_type
-%p
-  %strong Exp date:
-  = @inventory_item.exp_date
-%p
-  %strong Quantity:
-  = @inventory_item.quantity
-%p
-  %strong Nutrition per unit:
-  = @inventory_item.nutrition_per_unit
-= link_to 'Edit', edit_inventory_item_path(@inventory_item)
-|
-= link_to 'Back', inventory_items_path
+.row
+  .col.col-12.col-md-6
+    .card
+      .card-header
+        = @inventory_item.food_type
+      .card-body
+        %p
+          %strong Bunker:
+          = link_to @inventory_item.bunker.name, bunker_path(@inventory_item.bunker)
+        %p
+          %strong Exp date:
+          = @inventory_item.exp_date
+        %p
+          %strong Quantity:
+          = @inventory_item.quantity
+        %p
+          %strong Nutrition per unit:
+          = @inventory_item.nutrition_per_unit
+      .card-footer
+        - if admin?
+          = link_to 'Edit', edit_inventory_item_path(@inventory_item), class: 'btn btn-primary'
+          = link_to 'Item list', inventory_items_path, class: 'btn btn-secondary'
+        - else
+          = link_to 'Back', bunker_path(@inventory_item.bunker), class: 'btn btn-primary'
