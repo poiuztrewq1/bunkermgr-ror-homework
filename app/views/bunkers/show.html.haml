@@ -5,11 +5,11 @@
       %li.list-group-item= "Name: #{@bunker.name}"
       %li.list-group-item= "Address: #{@bunker.address}"
       %li.list-group-item= "User utilization: #{@bunker.users.length} person out of #{@bunker.capacity}"
-      %li.list-group-item= "Estimated stock duration: XXX days"
+      %li.list-group-item= "Estimated stock duration: #{@bunker.estimated_stocks} days"
     -if admin?
       = link_to 'Edit', edit_bunker_path(@bunker), { class: 'btn btn-primary', type: 'button'}
 .row.mb-4
-  .col.col-12.col-xl-6
+  .col.col-12
     %h2 Bunker Inventory:
     %table.table.table-responsive-sm
       %thead.thead-dark
@@ -17,6 +17,7 @@
           %th{:scope => "col"} Name
           %th{:scope => "col"} Quantity
           %th{:scope => "col"} Expiration Date
+          %th{:scope => "col"} Calories
           - if admin?
             %th{:scope => "col", :colspan => "3"} Actions
       %tbody
@@ -24,7 +25,9 @@
           %tr
             %td= item.food_type
             %td= item.quantity
-            %td.text-danger= item.exp_date
+            %td{class:item.expiration_class}
+              = item.exp_date
+            %td= "#{item.sum_calories} kcal"
             - if admin?
               %td
                 = link_to inventory_item_path(item), class: 'btn btn-secondary btn-sm' do
@@ -38,7 +41,8 @@
 
     -if admin?
       = link_to 'New Inventory Item', new_inventory_item_path(bunker_id: @bunker.id), { class: 'btn btn-primary btn-lg btn-block', type: 'button'}
-  .col.col-12.col-xl-6
+.row
+  .col.col-12
     %h2 Assigned users:
     %table.table.table-responsive-sm
       %thead.thead-dark

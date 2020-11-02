@@ -15,8 +15,13 @@
               %td
                 %strong= bunker.name
               %td= bunker.address
-              %td
-                Warning
+              - nei = bunker.next_expiring_item
+              - days = nei.days_til_exp
+              %td{class: nei.expiration_class}
+                - if days <= 0
+                  There are expired items in stock
+                - else
+                  = "Food expires in #{days} days"
               %td
                 = link_to bunker, class: 'btn btn-secondary btn-sm' do
                   %i.fas.fa-info-circle
