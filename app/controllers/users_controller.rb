@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.order(admin: :desc)
   end
 
   # GET /users/1
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_user_params)
 
     respond_to do |format|
       if @user.save
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(update_user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -64,13 +64,18 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
-    end
+  # Don't let the admin parameter to be set in the create function
+  def create_user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def update_user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+  end
 end
