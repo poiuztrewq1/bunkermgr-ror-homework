@@ -1,0 +1,11 @@
+.row
+  .col-12
+    %h1.mb0-5
+      Assign bunker to
+      %u= @user.name
+    = form_tag assign_path do
+      = hidden_field_tag :user_id, @user.id
+      .form-group
+        = label_tag :bunker_id
+        = select_tag :bunker_id, options_for_select(@bunkers)
+      = submit_tag "Assign", {class: 'btn btn-primary'}

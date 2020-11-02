@@ -12,13 +12,12 @@ class InventoryItem < ApplicationRecord
 
   def expiration_class
     days = days_til_exp
-    case
-    when days > 30
-      'text-success'
-    when days <= 30 && days > 0
+    if days <= 30 && days.positive?
       'text-warning'
-    when days <= 0
+    elsif days <= 0
       'text-danger'
+    else
+      'text-success'
     end
   end
 

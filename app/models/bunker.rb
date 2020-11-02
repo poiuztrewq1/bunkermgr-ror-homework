@@ -10,8 +10,8 @@ class Bunker < ApplicationRecord
   end
 
   def estimated_stocks
-    # estimation: 2000 kcal per person per day
-    sum_stocked_calories / 2000
+    users.empty? ? Float::INFINITY : sum_stocked_calories / (2000 * users.length)
+
   end
 
   def next_expiring_item

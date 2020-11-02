@@ -6,7 +6,7 @@
         %thead.thead-dark
           %tr
             %th Name
-            %th Stock (days)
+            %th Estimated Stocks
             %th Warnings
             %th{:colspan => admin?? "3" : "1"} Actions
         %tbody
@@ -14,14 +14,10 @@
             %tr
               %td
                 %strong= bunker.name
-              %td= bunker.address
-              - nei = bunker.next_expiring_item
-              - days = nei.days_til_exp
-              %td{class: nei.expiration_class}
-                - if days <= 0
-                  There are expired items in stock
-                - else
-                  = "Food expires in #{days} days"
+              %td= "#{bunker.estimated_stocks} days"
+              - warning = get_expiration_class_and_text(bunker.next_expiring_item)
+              %td{class: warning[0]}
+                = warning[1]
               %td
                 = link_to bunker, class: 'btn btn-secondary btn-sm' do
                   %i.fas.fa-info-circle

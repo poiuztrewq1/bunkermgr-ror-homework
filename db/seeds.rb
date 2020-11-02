@@ -7,7 +7,11 @@ max_item_per_bunker = 15
 
 
 #create a super-user, pass: 'admin'
-User.create(name: 'Admin János', email: 'admin@admin.com', password: 'admin', admin: true)
+admin = User.create(name: 'Admin János', email: 'admin@admin.com', password: 'admin', admin: true)
+
+#create a full bunker
+full = Bunker.create(name: 'FullBunker', address: 'Full street', capacity: 1000)
+full.users << admin
 
 num_bunkers.times do |_t|
   bunker   = Bunker.create(name:     Faker::Ancient.god,
@@ -21,6 +25,7 @@ num_bunkers.times do |_t|
                          nutrition_per_unit: Faker::Number.between(from: 1000, to: 3000),
                          bunker:             bunker)
   end
+  bunker.users << admin
   puts "Created bunker #{bunker.name} with #{num_item} inventory items"
 end
 
@@ -29,5 +34,6 @@ num_users.times do |_t|
                      email:    Faker::Internet.safe_email,
                      password: Faker::Internet.password(min_length: 8, max_length: 10,))
   user.bunkers << Bunker.all.sample
+  full.users << user
   puts "creating user: #{user.name} with password: #{user.password}"
 end
