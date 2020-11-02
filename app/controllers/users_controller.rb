@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :require_login, only: [:new, :create]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :require_logout, only: %i[new create]
+  before_action :require_admin, only: %i[edit update destroy]
+  skip_before_action :require_login, only: %i[new create]
 
   # GET /users
   # GET /users.json
@@ -10,8 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -19,8 +20,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'Successful registration' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -64,6 +64,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])

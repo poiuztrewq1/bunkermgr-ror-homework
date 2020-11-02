@@ -1,5 +1,6 @@
 class BunkersController < ApplicationController
-  before_action :set_bunker, only: [:show, :edit, :update, :destroy]
+  before_action :set_bunker, only: %i[show edit update destroy]
+  before_action :require_admin, only: %i[new create edit update destroy]
 
   # GET /bunkers
   # GET /bunkers.json
@@ -9,8 +10,7 @@ class BunkersController < ApplicationController
 
   # GET /bunkers/1
   # GET /bunkers/1.json
-  def show
-  end
+  def show; end
 
   # GET /bunkers/new
   def new
@@ -18,8 +18,7 @@ class BunkersController < ApplicationController
   end
 
   # GET /bunkers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bunkers
   # POST /bunkers.json

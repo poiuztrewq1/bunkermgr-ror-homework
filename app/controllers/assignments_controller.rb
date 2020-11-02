@@ -1,4 +1,6 @@
 class AssignmentsController < ApplicationController
+  before_action :require_admin
+
   def assign_user
     @bunker = Bunker.find(params[:bunker_id])
     users   = @bunker.user_ids
