@@ -1,11 +1,11 @@
 class BunkersController < ApplicationController
   before_action :set_bunker, only: %i[show edit update destroy]
   before_action :require_admin, only: %i[new create edit update destroy]
-
+  before_action :authorize_bunker, only: %i[show]
   # GET /bunkers
   # GET /bunkers.json
   def index
-    @bunkers = Bunker.all
+    @bunkers = admin? ? Bunker.all : current_user.bunkers
   end
 
   # GET /bunkers/1
@@ -65,6 +65,12 @@ class BunkersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_bunker
     @bunker = Bunker.find(params[:id])
+  end
+
+  def authorize_bunker
+    unless admin? || @bunker.users.include?(current_user)
+      redirect_to request.referrer || root_path, alert: 'You do not have permission to view this bunker'
+    end
   end
 
   # Only allow a list of trusted parameters through.
