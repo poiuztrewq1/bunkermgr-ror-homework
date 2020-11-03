@@ -1,6 +1,9 @@
 class InventoryItem < ApplicationRecord
   belongs_to :bunker
-  validates :quantity, numericality: true
+
+  validates :quantity, numericality: { only_integer: true }
+  validates :food_type, presence: true
+  validates :nutrition_per_unit, numericality: true
 
   def sum_calories
     nutrition_per_unit * quantity
