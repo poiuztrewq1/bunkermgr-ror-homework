@@ -5,7 +5,6 @@ class Bunker < ApplicationRecord
   validates :capacity, numericality: { only_integer: true }
   validates :name, presence: true
   validates :address, presence: true
-  validate :cannot_have_more_users_than_capacity
 
   def sum_stocked_calories
     inventory_items.map(&:sum_calories).sum
