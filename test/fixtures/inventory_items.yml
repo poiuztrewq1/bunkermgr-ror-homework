@@ -1,13 +1,43 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  food_type: MyString
-  exp_date: 2020-10-31
-  quantity: 1
-  nutrition_per_unit: 1
+f1:
+  food_type: Food1
+  exp_date: <%= DateTime.now.next_year %>
+  quantity: 10
+  nutrition_per_unit: 1000
+  bunker: alpha
 
-two:
-  food_type: MyString
-  exp_date: 2020-10-31
-  quantity: 1
-  nutrition_per_unit: 1
+f1_expired:
+  food_type: Expired Food 1
+  exp_date: 2019-10-31
+  quantity: 10
+  nutrition_per_unit: 1000
+  bunker: alpha
+
+f1_almost_expired:
+  food_type: Almost Expired Food 1
+  exp_date: <%= DateTime.now.next_day(20) %>
+  quantity: 10
+  nutrition_per_unit: 1000
+  bunker: alpha
+
+f2:
+  food_type: Food2
+  exp_date: <%= DateTime.now.next_year %>
+  quantity: 3
+  nutrition_per_unit: 1000
+  bunker: beta
+
+f2_almost_expired:
+  food_type: Almost Expired Food 2
+  exp_date: <%= DateTime.now.next_day(20) %>
+  quantity: 10
+  nutrition_per_unit: 1000
+  bunker: beta
+
+f3:
+  food_type: Food3
+  exp_date: <%= DateTime.now.next_year %>
+  quantity: 10
+  nutrition_per_unit: 1000
+  bunker: gamma
