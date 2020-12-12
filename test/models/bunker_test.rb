@@ -68,14 +68,13 @@ class BunkerTest < ActiveSupport::TestCase
     empty = Bunker.new
     assert_equal Float::INFINITY, empty.estimated_stocks, "Empty bunker not returning infinity"
 
-    a = Bunker.find bunkers(:alpha).id
-    assert_equal a.sum_stocked_calories / (2000 * users.length), a.estimated_stocks, "Wrong way of calculating estimated stocks"
+    test_data = [bunkers(:alpha).id,bunkers(:beta).id,bunkers(:gamma).id,bunkers(:delta).id]
 
-    b = Bunker.find bunkers(:beta).id
-    assert_equal b.sum_stocked_calories / (2000 * users.length), b.estimated_stocks, "Wrong way of calculating estimated stocks"
+    test_data.each do |bunker_id|
+      bunker = Bunker.find bunker_id
+      assert_equal bunker.sum_stocked_calories / (2000 * bunker.users.length), bunker.estimated_stocks, "Wrong way of calculating estimated stocks"
+    end
 
-    c = Bunker.find bunkers(:gamma).id
-    assert_equal c.sum_stocked_calories / (2000 * users.length), c.estimated_stocks, "Wrong way of calculating estimated stocks"
   end
 
 
