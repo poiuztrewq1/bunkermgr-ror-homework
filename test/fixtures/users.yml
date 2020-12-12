@@ -2,13 +2,13 @@
 
 normal_user:
   name: Normal User
-  email: normal@example.com
+  email: normal.user@example.com
   password_digest: <%= BCrypt::Password.create('123456') %>
   admin: false
 
 admin_user:
   name: Admin User
-  email: admin@example.com
+  email: admin.user@example.com
   password_digest: <%= BCrypt::Password.create('admin') %>
   admin: true
 

@@ -4,7 +4,7 @@ alpha:
   name: Alpha
   address: Address1
   capacity: 5
-  users: [admin_user,norlmal_user]
+  users: [admin_user,normal_user]
 
 beta:
   name: Beta
@@ -15,5 +15,11 @@ beta:
 gamma:
   name: Gamma
   address: Address3
-  capacity: 10
+  capacity: 11
   users: <%= (0..9).map{|n|"fill_user_#{n}"} %>
+
+delta:
+  name: Bunker with all users
+  address: Fullbunker address
+  capacity: 1000
+  users: <%= (0..9).map{|n| "fill_user_#{n}"} | ["admin_user","normal_user"]  %>

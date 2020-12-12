@@ -1,48 +1,26 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-  end
 
-  test "should get index" do
-    get users_url
+  test "Register new user" do
+    get url_for controller: 'users', action: 'new'
     assert_response :success
+    assert_select 'form'
+    assert_nil session[:user_id]
+
+    post url_for(controller: 'users', action: 'create'), params: {
+      user: {
+        name: 'User Name',
+        email: 'email.notindb@example.com',
+        password: '123456',
+        password_confirmation: '123456'
+      }
+    }
+
+    assert_redirected_to user_url User.last
+    assert_equal User.last.id, session[:user_id]
+
   end
 
-  test "should get new" do
-    get new_user_url
-    assert_response :success
-  end
 
-  test "should create user" do
-    assert_difference('User.count') do
-      post users_url, params: { user: { admin: @user.admin, email: @user.email, name: @user.name, password: 'secret', password_confirmation: 'secret' } }
-    end
-
-    assert_redirected_to user_url(User.last)
-  end
-
-  test "should show user" do
-    get user_url(@user)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_user_url(@user)
-    assert_response :success
-  end
-
-  test "should update user" do
-    patch user_url(@user), params: { user: { admin: @user.admin, email: @user.email, name: @user.name, password: 'secret', password_confirmation: 'secret' } }
-    assert_redirected_to user_url(@user)
-  end
-
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete user_url(@user)
-    end
-
-    assert_redirected_to users_url
-  end
 end
