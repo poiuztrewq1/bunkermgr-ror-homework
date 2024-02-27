@@ -6,9 +6,10 @@ and get statistics.
 # Technical deteails
 ## Ruby version
 - Ruby: ruby 2.7.1
-- Rails: Rails 6.0.3.3
+- Rails: Rails 6.0.3.3 
 ## Database
 Mysql (There is a docker-compose file for development)
+run `docker compose up`
 ## Setup
 ```
 bundle install
